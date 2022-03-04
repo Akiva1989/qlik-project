@@ -3,7 +3,6 @@ const Message = require('../models/message')
 const moment = require('moment')
 
 
-
 const removeMessage = async (id) => {
 
     const messageToDelete = await Message.findOne({returning: true, where: {id: id}})
@@ -22,23 +21,20 @@ const addMessage = async (message) => {
     const newMessage = new Message({
         message: message,
         isPalindrome: pdr
-    })
+    });
 
     try {
         const result = await newMessage.save();
-        console.log(result.dataValues)
         return result.dataValues;
     } catch(e) {
         throw new Error("couldn't store the message: "+e);
     };
-
 };
 
 const updateMessage = async (id, message) => {
     let pdr = isPalindrome(message);
     try {
-        const updatedMessage = await Message.update({message: message, isPalindrome :pdr, updatedAt: moment().format()}, {returning: true, where: {id: id}})
-        console.log(updatedMessage[1][0].dataValues)
+        const updatedMessage = await Message.update({message: message, isPalindrome :pdr, updatedAt: moment().format()}, {returning: true, where: {id: id}});
         return updatedMessage[1][0].dataValues;
     } catch(e) {
         throw new Error("couldn't find the message: "+e);
@@ -47,12 +43,12 @@ const updateMessage = async (id, message) => {
 };
 
 const getListMessages = async () => {
-    let existingMessages = await Message.findAll()
+    let existingMessages = await Message.findAll();
     return  existingMessages;
 }
 
 const getMessage = async (id) => {
-    let message = await Message.findOne({returning: true, where: {id: id}})
+    let message = await Message.findOne({returning: true, where: {id: id}});
     return  message;
 };
 

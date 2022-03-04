@@ -7,7 +7,6 @@ const {removeMessage, addMessage, updateMessage, getMessage, getListMessages} = 
 router.post('/message', async (req, res) => {
     try {
         let newMessage = await addMessage(req.body.message);
-        console.log(newMessage)
         res.status(201).send({
             success: 'the message is created',
             details: newMessage

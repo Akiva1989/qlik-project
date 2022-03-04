@@ -1,15 +1,5 @@
-const express = require('express');
-const messageRouter = require('./routers/message');
-const sequelize = require('./postgres/postgres')
-
-const app = express();
+const app = require('./app');
 const port = process.env.PORT || 3000;
-
-
-app.use(express.json());
-app.use(messageRouter);
-
-sequelize.sync()
 
 app.listen(port, ()=> {
     console.log('server is up on port '+port);
